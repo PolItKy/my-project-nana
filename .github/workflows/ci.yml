@@ -15,7 +15,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix: 
+        os: [windows-latest, ubuntu-latest, macOS-latest]
 
     steps:
     - name: Checkout
@@ -36,6 +39,10 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: ./gradlew build
+
+  # publish:
+  #   - needs: build 
+    
 
 
     # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
